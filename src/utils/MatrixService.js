@@ -142,10 +142,16 @@ class MatrixService {
         return moved;
     }
 
+    /**
+     * @return {Array<Array<{value: number, processed: boolean}>>}
+     */
     addProcessedProperty () {
         return this.matrix.map(row => row.map(column => { return { value: column, processed: false } }));
     }
 
+    /**
+     * @return {Array<Array<number>>}
+     */
     removeProcessedProperty () {
         return this.matrix.map(row => row.map(column => column.value));
     }
