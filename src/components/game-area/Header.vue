@@ -111,9 +111,10 @@
             .button {
                 background: $background-color;
                 color: $primary-color;
-                padding: 3px 20px;
+                padding: 3px 16px;
                 border-radius: 2px;
                 cursor: pointer;
+                margin-right: 4px;
             }
         }
     }

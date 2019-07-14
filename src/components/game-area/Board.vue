@@ -17,6 +17,7 @@
     import CommonEnums from '../../enums/CommonEnums';
     import MatrixService from '../../utils/MatrixService';
     import StorageService from '../../utils/StorageService';
+    import Swipe from '../../utils/Swipe';
     import BlockRow from '../block-row/Index';
 
     const storageService = new StorageService();
@@ -28,6 +29,7 @@
 
         mounted () {
             this.listenKeyUpEvents();
+            this.listenSwipeEvents();
 
             this.setProperty({ key: 'bestScore', value: storageService.get('best-score') });
         },
@@ -53,31 +55,42 @@
                 'incrementScore'
             ]),
 
+            /**
+             * @param {string} direction
+             */
+            shift (direction) {
+                const matrixService = new MatrixService({
+                    matrix: this.blockRows,
+                    newElementValue: CommonEnums.NEW_ELEMENT_VALUE
+                });
+                const { matrix, status, accumulatedValue } = matrixService.merge(direction);
+
+                if (status) {
+                    matrixService.addRandomValue(1);
+                }
+
+                this.setProperty({ key: 'blockRows', value: matrix });
+                this.incrementScore(accumulatedValue);
+
+                if (this.currentScore > (storageService.get('best-score') || 0)) {
+                    storageService.set({ key: 'best-score', value: this.currentScore });
+                    this.setProperty({ key: 'bestScore', value: this.currentScore });
+                }
+            },
+
             listenKeyUpEvents () {
                 document.addEventListener('keyup', event => {
                     const key = event.key;
                     const direction = key.replace('Arrow', '').toLowerCase();
 
                     if (CommonEnums.ALLOWED_BUTTONS.includes(key)) {
-                        const matrixService = new MatrixService({
-                            matrix: this.blockRows,
-                            newElementValue: CommonEnums.NEW_ELEMENT_VALUE
-                        });
-                        const { matrix, status, accumulatedValue } = matrixService.merge(direction);
-
-                        if (status) {
-                            matrixService.addRandomValue(1);
-                        }
-
-                        this.setProperty({ key: 'blockRows', value: matrix });
-                        this.incrementScore(accumulatedValue);
-
-                        if (this.currentScore > (storageService.get('best-score') || 0)) {
-                            storageService.set({ key: 'best-score', value: this.currentScore });
-                            this.setProperty({ key: 'bestScore', value: this.currentScore });
-                        }
+                        this.shift(direction)
                     }
                 });
+            },
+
+            listenSwipeEvents () {
+                new Swipe().listen(this.shift)
             }
         }
     };
