@@ -21,7 +21,11 @@ export default {
 
   body {
     background: $background-color;
+    height: 100%;
     overflow: hidden;
+    width: 100%;
+    position: fixed;
+    margin: 0;
   }
 
   #app {
