@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/game-area/Header.vue render renders correctly 1`] = `
+<div
+  class="header"
+  data="[object Object]"
+>
+  <div
+    class="row"
+  >
+    <div
+      class="game-name bold"
+    >
+      2048
+    </div>
+     
+    <div
+      class="score-area"
+    >
+      <div
+        class="score current-score bold"
+      >
+        <div
+          class="title"
+        >
+          Score
+        </div>
+         
+        <div
+          class="score"
+        >
+          10
+        </div>
+      </div>
+       
+      <div
+        class="score best-score bold"
+      >
+        <div
+          class="title"
+        >
+          Best
+        </div>
+         
+        <div
+          class="score"
+        >
+          20
+        </div>
+      </div>
+    </div>
+  </div>
+   
+  <div
+    class="row"
+  >
+    <div>
+      Get to the 2048
+    </div>
+     
+    <div
+      class="button bold"
+    >
+      New Game
+    </div>
+  </div>
+   
+  <div
+    class="achievement-message"
+  >
+    
+        You have achieved 2048, Enjoy.
+    
+  </div>
+</div>
+`;

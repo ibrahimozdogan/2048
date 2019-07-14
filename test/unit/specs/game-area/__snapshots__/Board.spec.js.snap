@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/game-area/Board.vue render renders correctly 1`] = `
+<div
+  class="block-table"
+  data="[object Object]"
+>
+  <blockrow-stub
+    blocks="0,2,2048,4"
+    rowindex="0"
+  />
+  <blockrow-stub
+    blocks="0,2,0,4"
+    rowindex="1"
+  />
+  <blockrow-stub
+    blocks="0,2,0,4"
+    rowindex="2"
+  />
+  <blockrow-stub
+    blocks="0,2,0,4"
+    rowindex="3"
+  />
+   
+  <!---->
+</div>
+`;

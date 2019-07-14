@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import Block from './Block';
+    import Block from './Block.vue';
 
     export default {
         props: {
@@ -25,7 +25,7 @@
              */
             blocks: {
                 type: Array,
-                default: [],
+                default: () => [],
             },
         },
 

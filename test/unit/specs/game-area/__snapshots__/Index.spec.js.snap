@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/game-area/Index.vue render renders correctly 1`] = `
+<div
+  class="game-area"
+>
+  <header-stub />
+   
+  <board-stub />
+</div>
+`;

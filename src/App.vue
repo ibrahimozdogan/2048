@@ -21,6 +21,7 @@ export default {
 
   body {
     background: $background-color;
+    overflow: hidden;
   }
 
   #app {
