@@ -127,7 +127,7 @@
 
     .achievement-message {
         position: absolute;
-        top: 10px;
+        top: 85px;
         padding: 10px;
     }
 </style>
