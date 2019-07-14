@@ -29,7 +29,7 @@
 
         mounted () {
             this.listenKeyUpEvents();
-            this.listenSwipeEvents();
+            new Swipe().listen(this.shift);
 
             this.setProperty({ key: 'bestScore', value: storageService.get('best-score') });
         },
@@ -87,10 +87,6 @@
                         this.shift(direction)
                     }
                 });
-            },
-
-            listenSwipeEvents () {
-                new Swipe().listen(this.shift)
             }
         }
     };

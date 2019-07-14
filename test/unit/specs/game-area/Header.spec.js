@@ -69,15 +69,4 @@ describe('@components/game-area/Header.vue', () => {
             hasMock.mockRestore();
         });
     });
-/*
-    describe('methods', () => {
-        describe('startGame', function () {
-            it('should start game', function () {
-                console.log(wrapper.findAll('.button'));
-                wrapper.findAll('.button').trigger('click');
-                expect(wrapper.emitted('startGame').length).toBe(1);
-                expect(gameStore.actions.setProperty).toBeCalledWith({ key: 'blockRows', value: blockRows})
-            });
-        });
-    });*/
 });

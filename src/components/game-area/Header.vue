@@ -36,7 +36,9 @@
                 blockRows: 'getBlockRows',
             }),
 
-
+            /**
+             * @return {boolean}
+             */
             achievementCompleted () {
                 return new MatrixService({ matrix: this.blockRows }).has(2048);
             }

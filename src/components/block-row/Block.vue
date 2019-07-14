@@ -19,6 +19,9 @@
         },
 
         computed: {
+            /**
+             * @return {string}
+             */
             backgroundColor () {
                 const color = CommonEnums.COLORS[this.value];
 

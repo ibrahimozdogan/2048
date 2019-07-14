@@ -1,9 +1,0 @@
-version: '3'
-services:
-  application:
-    container_name: '2048'
-    build: .
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./src:/var/2048/src
