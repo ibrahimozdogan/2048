@@ -1,16 +1,15 @@
 import * as types from './types';
 
 const state = {
-    blockRows: [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-    ]
+    blockRows: [],
+    bestScore: 0,
+    currentScore: 0,
 };
 
 const getters = {
     getBlockRows: state => state.blockRows,
+    getBestScore: state => state.bestScore,
+    getCurrentScore: state => state.currentScore,
 };
 
 /**
@@ -19,22 +18,37 @@ const getters = {
  */
 const actions = {
     /**
-     * @name setBlockRows
+     * @name setProperty
      * @param {function} [commit]
-     * @param {Array<Array<number>>} blockRows
+     * @param {object} property
      */
-    async [types.SET_BLOCK_ROWS] ({ commit }, blockRows) {
-        commit(types.SET_BLOCK_ROWS, blockRows);
+    [types.SET_PROPERTY] ({ commit }, property) {
+        commit(types.SET_PROPERTY, property);
+    },
+    /**
+     * @name incrementScore
+     * @param {function} [commit]
+     * @param {number} value
+     */
+    [types.INCREMENT_SCORE] ({ commit }, value) {
+        commit(types.INCREMENT_SCORE, value);
     },
 };
 
 const mutations = {
     /**
      * @param {object} state
-     * @param {Array<Array<number>>} blockRows
+     * @param {object} property
      */
-    [types.SET_BLOCK_ROWS] (state, blockRows) {
-        state.blockRows = blockRows;
+    [types.SET_PROPERTY] (state, { key, value }) {
+        state[key] = value;
+    },
+    /**
+     * @param {object} state
+     * @param {number} value
+     */
+    [types.INCREMENT_SCORE] (state, value) {
+        state.currentScore += value;
     },
 };
 

@@ -2,30 +2,44 @@ class MatrixService {
     /**
      * @param {object} [config]
      * @param {Array<Array<number>>} [config.matrix]
-     * @param {number} [config.minimumValue]
+     * @param {number} [config.newElementValue]
      * @returns {MatrixService}
      */
-    constructor ({ matrix = [[]], minimumValue = 2 } = {}) {
-        this.minimumValue = minimumValue;
-        this.matrix = MatrixService.clone(matrix);
+    constructor ({ matrix = [[]], newElementValue = 2 } = {}) {
+        this.newElementValue = newElementValue;
+        this._matrix = MatrixService.clone(matrix);
         this.ROTATIONS = { up: 3, right: 2, down: 1, left: 0 };
 
         return this;
     }
 
     /**
-     * @param {number} size
      * @returns {Array<Array<number>>}
-     * @return {MatrixService}
+     */
+    get () {
+        return this._matrix;
+    }
+
+    /**
+     * @param value
+     * @return {boolean}
+     */
+    has (value) {
+        return this._matrix.filter(row => row.map(column => column === value).includes(true)).length !== 0
+    }
+
+    /**
+     * @param {number} size
+     * @returns {MatrixService}
      */
     create (size) {
-        this.matrix = [];
+        this._matrix = [];
 
         for (let i = 0; i < size; i++) {
-            this.matrix[i] = [];
+            this._matrix[i] = [];
 
             for (let j = 0; j < size; j++) {
-                this.matrix[i][j] = 0;
+                this._matrix[i][j] = 0;
             }
         }
 
@@ -34,20 +48,20 @@ class MatrixService {
 
     /**
      * @params {number} count
-     * @returns {Array<Array<number>>}
+     * @returns {MatrixService}
      */
     addRandomValue (count) {
         if (count === 0 || this.isMatrixFull()) {
-            return this.matrix;
+            return this;
         }
 
-        const size = this.matrix.length;
+        const size = this._matrix.length;
 
         let i = Math.floor(Math.random() * size);
         let j = Math.floor(Math.random() * size);
 
-        if (this.matrix[i][j] === 0) {
-            this.matrix[i][j] = this.minimumValue;
+        if (this._matrix[i][j] === 0) {
+            this._matrix[i][j] = this.newElementValue;
 
             return this.addRandomValue(count - 1);
         }
@@ -59,39 +73,38 @@ class MatrixService {
      * @returns {boolean}
      */
     isMatrixFull () {
-        return this.matrix.filter(row => row.filter(column => column === 0).includes(false)).length !== 0;
+        return !this.has(0);
     }
 
     /**
      * Returns merged matrix and merged status, If matrix doesnt move, status will return false
      * @param {string} direction
-     * @returns {boolean}
+     * @returns {{ matrix: Array<Array<number>>, status: boolean }}
      */
     merge (direction) {
         this.rotate(this.ROTATIONS[direction]);
-        const status = this.shiftLeft();
+        const { status, accumulatedValue } = this.shiftLeft();
         this.rotate(4 - this.ROTATIONS[direction]);
 
-        return { matrix: this.matrix, status };
+        return { matrix: this._matrix, status, accumulatedValue };
     }
 
     /**
      * Rotates matrix 90deg clockwise by using given times
      * @param {number} times
-     * @returns {Array<Array<number>>}
      */
     rotate (times) {
-        var count = 0;
+        let count = 0;
 
         while (count < times) {
-            this.matrix = this.matrix.reverse();
+            this._matrix = this._matrix.reverse();
 
-            for (let i = 0; i < this.matrix.length; i++) {
+            for (let i = 0; i < this._matrix.length; i++) {
                 for (let j = 0; j < i; j++) {
-                    let temp = this.matrix[i][j];
+                    let temp = this._matrix[i][j];
 
-                    this.matrix[i][j] = this.matrix[j][i];
-                    this.matrix[j][i] = temp;
+                    this._matrix[i][j] = this._matrix[j][i];
+                    this._matrix[j][i] = temp;
                 }
             }
 
@@ -100,14 +113,15 @@ class MatrixService {
     }
 
     /**
-     * @return {boolean}
+     * @return {{accumulatedValue: number, status: boolean}}
      */
     shiftLeft () {
-        var moved = false;
-        this.matrix = this.addProcessedProperty();
+        let moved = false;
+        let accumulatedValue = 0;
+        this._matrix = this.addProcessedProperty();
 
-        for (let rowIndex = 0; rowIndex < this.matrix.length; rowIndex++) {
-            let column = this.matrix[rowIndex];
+        for (let rowIndex = 0; rowIndex < this._matrix.length; rowIndex++) {
+            let column = this._matrix[rowIndex];
 
             for (let columnIndex = 0; columnIndex < column.length - 1; columnIndex++) {
                 let current = column[columnIndex];
@@ -133,27 +147,28 @@ class MatrixService {
                     next.value = 0;
                     columnIndex = -1;
                     moved = true;
+                    accumulatedValue += current.value;
                 }
             }
         }
 
-        this.matrix = this.removeProcessedProperty();
+        this._matrix = this.removeProcessedProperty();
 
-        return moved;
+        return { status: moved, accumulatedValue };
     }
 
     /**
      * @return {Array<Array<{value: number, processed: boolean}>>}
      */
     addProcessedProperty () {
-        return this.matrix.map(row => row.map(column => { return { value: column, processed: false } }));
+        return this._matrix.map(row => row.map(column => { return { value: column, processed: false } }));
     }
 
     /**
      * @return {Array<Array<number>>}
      */
     removeProcessedProperty () {
-        return this.matrix.map(row => row.map(column => column.value));
+        return this._matrix.map(row => row.map(column => column.value));
     }
 
     /**

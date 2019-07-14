@@ -36,5 +36,6 @@
 <style lang="scss" scoped>
     .block-row {
         display: flex;
+        position: relative;
     }
 </style>
