@@ -1,5 +1,9 @@
 # 2048
 
+Live Demo Link
+
+http://35.225.130.171:8080/
+
 Pre-Requests
 
 ------------
