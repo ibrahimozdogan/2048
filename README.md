@@ -34,6 +34,20 @@ You can access the game via http://localhost:8080
 
 # OR
 
+Installation
+
+------------
+Clone project. 
+
+```bash
+git clone https://github.com/ibrahimozdogan/2048.git
+```
+
+Open project directory.
+
+```bash
+cd 2048
+```
 
 ``` bash
 # install dependencies
