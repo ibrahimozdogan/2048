@@ -25,3 +25,40 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# OR
+
+Pre-Requests
+
+------------
+
+* Docker for Mac (https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
+
+------------
+
+Installation
+
+------------
+Clone project. 
+
+```bash
+git clone https://github.com/ibrahimozdogan/2048.git
+```
+
+Open project directory.
+
+```bash
+cd 2048
+```
+
+Run `docker-compose up` command. Then, Enjoy...
+
+```bash
+docker-compose up
+```
+
+You can access the game via http://localhost:8080
+
+
+Any questions : <halilibrahimozdogan2@gmail.com>
+
