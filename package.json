@@ -16,7 +16,7 @@
     "vue": "^2.5.2",
     "vuex": "3.0.1",
     "sass-loader": "^7.1.0",
-    "node-sass": "^4.12.0"
+    "node-sass": "^7.0.0"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.29",
